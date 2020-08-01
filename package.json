@@ -1,0 +1,38 @@
+{
+  "name": "svg-text-in-shape",
+  "version": "1.0.0",
+  "description": "A simple tool for wrapping text in an svg shape",
+  "main": "build/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.1.0",
+    "jest": "^26.0.1",
+    "jest-cli": "^24.8.0",
+    "jest-css-modules": "^2.1.0",
+    "jest-cucumber": "^2.0.11",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "test": "jest --watch",
+    "build": "webpack --mode production --display-modules",
+    "start": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crispinanderson/svg-text-in-shape.git"
+  },
+  "keywords": [
+    "svg",
+    "text",
+    "wrap"
+  ],
+  "author": "Crispin Anderson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crispinanderson/svg-text-in-shape/issues"
+  },
+  "homepage": "https://github.com/crispinanderson/svg-text-in-shape#readme"
+}
