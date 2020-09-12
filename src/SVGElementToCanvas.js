@@ -1,8 +1,7 @@
 import { getSVGMasterLayer } from "./utils";
-import { calcTextData } from "./calcTextData";
 
 
-const newCanvas = (SVGElement) => {
+export const newCanvas = (SVGElement) => {
     const canvas = document.createElement('canvas');
     const svgMaster = getSVGMasterLayer(SVGElement);
     canvas.width = svgMaster.getBBox().width;
@@ -13,7 +12,6 @@ const newCanvas = (SVGElement) => {
     foreignObject.style.height = svgMaster.getBBox().height;
     foreignObject.appendChild(canvas);
     svgMaster.appendChild(foreignObject);
-
     return canvas.getContext('2d');
 }
 
@@ -21,7 +19,7 @@ export const destroyCanvas = () => {
     document.getElementById('temp_canvas').remove()
 }
 
-const drawPath = (SVGElement, context) => {
+/* const drawPath = (SVGElement, context) => {
     const d = SVGElement.getAttribute("d").trim(' ');
     const path = new Path2D(d);
     context.closePath(path);
@@ -29,10 +27,10 @@ const drawPath = (SVGElement, context) => {
     context.fill(path);
 
     return { context, path };
-}
+} */
 
 
-const drawPolygon = (SVGElement, context) => {
+export const drawPolygon = (SVGElement, context) => {
 
     //Get the polygon points attribute and split to an array
     const p = SVGElement.getAttribute("points").trim(' ').split(" ").map((point) => point.trim(' '));
@@ -66,7 +64,7 @@ const drawPolygon = (SVGElement, context) => {
     return context;
 };
 
-const drawRect = (SVGElement, context) => {
+export const drawRect = (SVGElement, context) => {
 
     const bbox = SVGElement.getBBox();
 
@@ -82,7 +80,7 @@ const drawRect = (SVGElement, context) => {
     return context;
 };
 
-const drawCircle = (SVGElement, context) => {
+export const drawCircle = (SVGElement, context) => {
 
     const x = +SVGElement.getAttribute("cx");
     const y = +SVGElement.getAttribute("cy");
@@ -101,8 +99,8 @@ export const SVGElementToCanvas = (SVGElement) => {
 
     switch (SVGElement.tagName) {
 
-        case 'path':
-            return drawPath(SVGElement, context);
+        /* case 'path':
+            return drawPath(SVGElement, context); */
 
         case 'polygon':
             return drawPolygon(SVGElement, context);

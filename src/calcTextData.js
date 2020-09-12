@@ -3,7 +3,6 @@ import { getSVGMasterLayer, applyStyle } from "./utils";
 
 export const calcTextData = (text, SVGElement, context, options, path) => {
 
-
     const items = [];
     const bbox = SVGElement.getBBox();
 
@@ -19,8 +18,10 @@ export const calcTextData = (text, SVGElement, context, options, path) => {
 
     //Set textContent to get lineHeight and remove
     tempText.textContent = 'Test';
-    let lineHeight = tempText.getBBox().height;
+    const lineHeight = tempText.getBBox().height;
+    const charWidth = tempText.getBBox().width / tempText.textContent.length;
     tempText.textContent = '';
+    tempText.remove();
 
 
     let padding = {
@@ -35,11 +36,13 @@ export const calcTextData = (text, SVGElement, context, options, path) => {
     for (let i = 0; i < paragraphs.length; i++) {
         let lineData;
         let paragraph = paragraphs[i];
+        let tempTextStore = '';
 
+        //Ensure the first paragraph/line can display the entire first word
         if (i === 0) {
-            tempText.textContent = paragraph[0]
-            let minWidth = tempText.getBBox().width;
-            tempText.textContent = '';
+            tempTextStore += ' ' + paragraph[0];
+            let minWidth = tempTextStore.length * charWidth;
+            tempTextStore = '';
             lineData = calcLineData(context, lineHeight, bbox, yOffset, padding, minWidth, path)
         }
         else {
@@ -47,81 +50,95 @@ export const calcTextData = (text, SVGElement, context, options, path) => {
             lineData = calcLineData(context, lineHeight, bbox, yOffset, padding, null, path)
         }
 
+        if (lineData.y <= bbox.height - padding.bottom) {
+
+            for (let j = 0; j < paragraph.length; j++) {
+
+                if (lineData.y <= bbox.height - padding.bottom) {
+                    let word = paragraph[j];
+
+                    //Add a space before each word except a sentence first
+                    if (j !== 0) {
+                        tempTextStore += ' ';
+                    }
+
+                    tempTextStore += word;
+
+                    //If the paragraph will overrun the shape, split to a new line
+                    if (tempTextStore.length * charWidth > lineData.width) {
+
+                        tempTextStore = tempTextStore.replace(' ' + word, '')
+
+                        //Store the line data
+                        items.push({
+                            ...lineData,
+                            textWidth: tempTextStore.length * charWidth,
+                            textContent: tempTextStore
+                        })
+
+                        //create a new line
+                        tempTextStore = word//j < paragraph.length - 1 ? word + ' ' : word;
+                        yOffset = lineData.y;
+                        lineData = { ...calcLineData(context, lineHeight, bbox, yOffset, padding) };
 
 
-        for (let j = 0; j < paragraph.length; j++) {
+                    }
 
-            if (lineData.y <= bbox.height - padding.bottom) {
-                let word = paragraph[j];
+                    //Else the end of the paragraph is reached
+                    else if (j === paragraph.length - 1) {
 
-                if (j !== 0) tempText.textContent += ' ';
-                tempText.textContent += word;
+                        //Store the line data
+                        items.push({
+                            ...lineData,
+                            textWidth: tempTextStore.length * charWidth,
+                            textContent: tempTextStore
+                        })
 
-                //If the paragraph will overrun the shape, split to a new line
-                if (tempText.getBBox().width > lineData.width) {
-
-                    tempText.textContent = tempText.textContent.replace(' ' + word, '')
-
-                    //Store the line data
-                    items.push({
-                        ...lineData,
-                        textWidth: tempText.getBBox().width,
-                        textContent: tempText.textContent
-                    })
-
-                    //create a new line
-                    tempText.textContent = j < paragraph.length - 1 ? word + ' ' : word;
-                    yOffset += lineHeight;
-                    lineData = { ...calcLineData(context, lineHeight, bbox, yOffset, padding) };
-
-                }
-
-                //Else the end of the paragraph is reached
-                else if (j === paragraph.length - 1) {
-
-                    //Store the line data
-                    items.push({
-                        ...lineData,
-                        textWidth: tempText.getBBox().width,
-                        textContent: tempText.textContent
-                    })
-
-                    //increase the lineOffset & reset the textContent
-                    yOffset += lineHeight;
-                    tempText.textContent = '';
-
-                }
-            }
-            else {
-                //If the whole text does not fit in the shape the append '...' to the end
-                let lastLine = items[items.length - 1];
-
-                //Add the punctuation
-                tempText.textContent += '...';
-
-                if (tempText.getBBox().width > lastLine.width) {
-                    lastLine.textContent = lastLine.textContent.trim().replace(/\s(\w+)$/, '...')
+                        //increase the lineOffset & reset the tempTextStore
+                        yOffset = lineData.y;
+                        tempTextStore = '';
+                    }
                 }
                 else {
-                    tempText.textContent = lastLine.textContent + '...';
-                    lastLine.textContent = lastLine.textContent + '...';
+                    break;
                 }
-
-                lastLine.textWidth = tempText.getBBox().width;
-                break;
             }
 
-        }
-    }
 
-    tempText.remove();
+        }
+
+        else {
+            //If the whole text does not fit in the shape the append '...' to the end
+            let lastLine = items[items.length - 1];
+
+            function addContPunctuation(data) {
+                const edited = { ...data }
+                //Add the punctuation
+                const puncTextStore = !edited.textContent.includes('...') ? edited.textContent += '...' : edited.textContent;
+
+                if (puncTextStore.length * charWidth > edited.width) {
+                    edited.textContent = edited.textContent.trim().replace(/\w([^\w+]*)$/, '');
+                    edited.textContent = edited.textContent.trim().replace(/\s(\w+)$/, '...');
+                    edited.textWidth = puncTextStore.length * charWidth;
+                    return addContPunctuation(edited)
+                }
+
+                return edited;
+            }
+
+            items[items.length - 1] = addContPunctuation(lastLine);
+            break;
+        }
+
+
+    }
 
     return items;
 };
 
 //Calculates the x, y position and width of each line from a given yOffset position
 //Relies on context.isPointInPath to calculate
-const calcLineData = (context, lineHeight, bbox, yOffset, padding, minWidth = 0, path) => {
+const calcLineData = (context, lineHeight, bbox, yOffset, padding, minWidth = 0) => {
 
     let xOffset = 0, wOffset = 0;
 
@@ -135,31 +152,15 @@ const calcLineData = (context, lineHeight, bbox, yOffset, padding, minWidth = 0,
     if (yOffset + lineHeight <= bbox.height) {
 
         while ((!inPath.topLeft || !inPath.bottomLeft) && xOffset <= bbox.width) {
-            if (path) {
-                if (context.isPointInPath(path, bbox.x + xOffset, bbox.y + yOffset)) inPath.topLeft = true;
-                if (context.isPointInPath(path, bbox.x + xOffset, bbox.y + yOffset + lineHeight)) inPath.bottomLeft = true;
-            }
-            else {
-                if (context.isPointInPath(bbox.x + xOffset, bbox.y + yOffset)) inPath.topLeft = true;
-                if (context.isPointInPath(bbox.x + xOffset, bbox.y + yOffset + lineHeight)) inPath.bottomLeft = true;
-            }
-
-
+            if (context.isPointInPath(bbox.x + xOffset, bbox.y + yOffset)) inPath.topLeft = true;
+            if (context.isPointInPath(bbox.x + xOffset, bbox.y + yOffset + lineHeight)) inPath.bottomLeft = true;
             xOffset += 1;
 
         }
 
         while ((!inPath.topRight || !inPath.bottomRight) && wOffset >= 0 - bbox.width) {
-            if (path) {
-                if (context.isPointInPath(path, bbox.x + bbox.width + wOffset, bbox.y + yOffset)) inPath.topRight = true;
-                if (context.isPointInPath(path, bbox.x + bbox.width + wOffset, bbox.y + yOffset + lineHeight)) inPath.bottomRight = true;
-            }
-            else {
-                if (context.isPointInPath(bbox.x + bbox.width + wOffset, bbox.y + yOffset)) inPath.topRight = true;
-                if (context.isPointInPath(bbox.x + bbox.width + wOffset, bbox.y + yOffset + lineHeight)) inPath.bottomRight = true;
-            }
-
-
+            if (context.isPointInPath(bbox.x + bbox.width + wOffset, bbox.y + yOffset)) inPath.topRight = true;
+            if (context.isPointInPath(bbox.x + bbox.width + wOffset, bbox.y + yOffset + lineHeight)) inPath.bottomRight = true;
             wOffset -= 1;
 
         }
@@ -193,10 +194,10 @@ const calcLineData = (context, lineHeight, bbox, yOffset, padding, minWidth = 0,
 
         }
 
-        //If all points could not be calculated, increment by 1x and retry
+        //Else If all points could not be calculated, increment by 1px and retry
         else if (!inPath.topLeft || !inPath.topRight || !inPath.bottomRight || !inPath.bottomLeft) {
             nextLineOffset += 1;
-            return calcLineData(context, lineHeight, bbox, nextLineOffset, padding, minWidth, path,);
+            return calcLineData(context, lineHeight, bbox, nextLineOffset, padding, minWidth, path);
         }
 
 
