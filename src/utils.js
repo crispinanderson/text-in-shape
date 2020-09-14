@@ -1,6 +1,6 @@
-export const getSVGMasterLayer = (SVGElement) => {
+export const getSVGMasterLayer = (svgElement) => {
     return Array.from(document.querySelectorAll('svg'))
-        .filter((elem) => elem.innerHTML.includes(`id="${SVGElement.id}"`))[0]
+        .filter((elem) => elem.innerHTML.includes(`id="${svgElement.id}"`))[0]
 }
 
 export const applyStyle = (elem, style) => {

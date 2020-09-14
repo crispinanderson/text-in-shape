@@ -1,9 +1,9 @@
 import { getSVGMasterLayer } from "./utils";
 
 
-export const newCanvas = (SVGElement) => {
+export const newCanvas = (svgElement) => {
     const canvas = document.createElement('canvas');
-    const svgMaster = getSVGMasterLayer(SVGElement);
+    const svgMaster = getSVGMasterLayer(svgElement);
     canvas.width = svgMaster.getBBox().width;
     canvas.height = svgMaster.getBBox().height;
     const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
@@ -19,8 +19,8 @@ export const destroyCanvas = () => {
     document.getElementById('temp_canvas').remove()
 }
 
-/* const drawPath = (SVGElement, context) => {
-    const d = SVGElement.getAttribute("d").trim(' ');
+/* const drawPath = (svgElement, context) => {
+    const d = svgElement.getAttribute("d").trim(' ');
     const path = new Path2D(d);
     context.closePath(path);
     context.fillStyle = "#FF0000";
@@ -30,10 +30,10 @@ export const destroyCanvas = () => {
 } */
 
 
-export const drawPolygon = (SVGElement, context) => {
+export const drawPolygon = (svgElement, context) => {
 
     //Get the polygon points attribute and split to an array
-    const p = SVGElement.getAttribute("points").trim(' ').split(" ").map((point) => point.trim(' '));
+    const p = svgElement.getAttribute("points").trim(' ').split(" ").map((point) => point.trim(' '));
     let pos;
 
     //Loop through each point pair [x, y]
@@ -64,9 +64,9 @@ export const drawPolygon = (SVGElement, context) => {
     return context;
 };
 
-export const drawRect = (SVGElement, context) => {
+export const drawRect = (svgElement, context) => {
 
-    const bbox = SVGElement.getBBox();
+    const bbox = svgElement.getBBox();
 
     const x = +bbox.x;
     const y = +bbox.y;
@@ -80,11 +80,11 @@ export const drawRect = (SVGElement, context) => {
     return context;
 };
 
-export const drawCircle = (SVGElement, context) => {
+export const drawCircle = (svgElement, context) => {
 
-    const x = +SVGElement.getAttribute("cx");
-    const y = +SVGElement.getAttribute("cy");
-    const r = +SVGElement.getAttribute("r");
+    const x = +svgElement.getAttribute("cx");
+    const y = +svgElement.getAttribute("cy");
+    const r = +svgElement.getAttribute("r");
 
     context.arc(x, y, r, 0, 2 * Math.PI);
     context.fillStyle = "#FF0000";
@@ -94,22 +94,22 @@ export const drawCircle = (SVGElement, context) => {
 
 };
 
-export const SVGElementToCanvas = (SVGElement) => {
-    const context = newCanvas(SVGElement);
+export const svgElementToCanvas = (svgElement) => {
+    const context = newCanvas(svgElement);
 
-    switch (SVGElement.tagName) {
+    switch (svgElement.tagName) {
 
         /* case 'path':
-            return drawPath(SVGElement, context); */
+            return drawPath(svgElement, context); */
 
         case 'polygon':
-            return drawPolygon(SVGElement, context);
+            return drawPolygon(svgElement, context);
 
         case 'rect':
-            return drawRect(SVGElement, context);
+            return drawRect(svgElement, context);
 
         case 'circle':
-            return drawCircle(SVGElement, context);
+            return drawCircle(svgElement, context);
 
         default: throw 'svg-text-in-shape only supports SVG circle, rect & polygon'
 

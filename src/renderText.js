@@ -1,10 +1,10 @@
 import { applyStyle } from "./utils";
 
-export const renderText = (SVGElement, renderData, options) => {
+export const renderText = (svgElement, renderData, options) => {
 
 
-    const bbox = SVGElement.getBBox();
-    const parent = SVGElement.parentNode;
+    const bbox = svgElement.getBBox();
+    const parent = svgElement.parentNode;
     const margin = {
         y: +window.getComputedStyle(document.body).marginTop.replace('px', ''),
         x: +window.getComputedStyle(document.body).marginLeft.replace('px', '')
