@@ -1,9 +1,13 @@
 export const calcLineAlignment = (options, lineData) => {
     switch (options.align) {
         case 'center':
-            return { ...lineData, x: lineData.x + (lineData.width - lineData.textWidth) / 2 };
+            return lineData.map((thisLine) => {
+                return { ...thisLine, x: thisLine.x + (thisLine.width - thisLine.textWidth) / 2 }
+            });
         case 'right':
-            return { ...lineData, x: lineData.x + lineData.width - lineData.textWidth };
+            return lineData.map((thisLine) => {
+                return { ...thisLine, x: thisLine.x + thisLine.width - thisLine.textWidth }
+            });
         default:
             return lineData
     }

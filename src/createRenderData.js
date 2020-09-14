@@ -1,5 +1,4 @@
 import { svgElementToCanvas, destroyCanvas } from "./svgElementToCanvas";
-import { calcTextData } from "./addTextContentToLineData";
 import { calcLineAlignment } from "./calcLineAlignment";
 import { calcLineJustification } from "./calcLineJustification";
 import { getStyledFontDimensions } from "./getStyledFontDimensions";
@@ -10,7 +9,7 @@ export const createRenderData = (text, svgElement, options) => {
     const fontDims = getStyledFontDimensions(svgElement, options);
     const lineData = calcLinePositions({ ...fontDims, context, svgElement, options, text });
     const lineDataWithText = addTextContentToLineData({ ...fontDims, text, lineData });
-    const lineDataAligned = lineDataWithText.map((thisLine) => calcLineAlignment(options, thisLine));
+    const lineDataAligned = calcLineAlignment(options, thisLine);
     const lineDataJustified = options.lineJustify ? lineDataAligned.map((thisLine) => calcLineJustification(options, thisLine)) : lineDataAligned;
     destroyCanvas();
 
