@@ -9,15 +9,15 @@ const defaultOptions = {
     style: {},
 }
 
-export const SVGTextInShape = (text, SVGElement, userOptions = {}) => {
+export const SVGTextInShape = (text, svgElement, userOptions = {}) => {
 
     const options = {
         ...defaultOptions,
         ...userOptions
     }
 
-    const renderData = createRenderData(text, SVGElement, options);
-    renderText(SVGElement, renderData, options);
+    const renderData = createRenderData(text, svgElement, options);
+    renderText(svgElement, renderData, options);
 }
 
 export default SVGTextInShape;

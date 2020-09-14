@@ -1,14 +1,18 @@
-import { SVGElementToCanvas, destroyCanvas } from "./SVGElementToCanvas";
-import { calcTextData } from "./calcTextData";
+import { svgElementToCanvas, destroyCanvas } from "./svgElementToCanvas";
+import { calcTextData } from "./addTextContentToLineData";
 import { calcLineAlignment } from "./calcLineAlignment";
 import { calcLineJustification } from "./calcLineJustification";
+import { getStyledFontDimensions } from "./getStyledFontDimensions";
+import { calcLinePositions } from "./calcLineData";
 
-export const createRenderData = (text, SVGElement, options) => {
-    const context = SVGElementToCanvas(SVGElement);
-    const textData = calcTextData(text, SVGElement, context, options, path);
-    const alignedTextData = textData.map((lineData) => calcLineAlignment(options, lineData));
-    const justifiedText = options.lineJustify ? alignedTextData.map((lineData) => calcLineJustification(options, lineData)) : alignedTextData;
+export const createRenderData = (text, svgElement, options) => {
+    const context = svgElementToCanvas(svgElement);
+    const fontDims = getStyledFontDimensions(svgElement, options);
+    const lineData = calcLinePositions({ ...fontDims, context, svgElement, options, text });
+    const lineDataWithText = addTextContentToLineData({ ...fontDims, text, lineData });
+    const lineDataAligned = lineDataWithText.map((thisLine) => calcLineAlignment(options, thisLine));
+    const lineDataJustified = options.lineJustify ? lineDataAligned.map((thisLine) => calcLineJustification(options, thisLine)) : lineDataAligned;
     destroyCanvas();
 
-    return justifiedText;
+    return lineDataJustified;
 } 
