@@ -42,8 +42,8 @@
   "homepage": "https://github.com/crispinanderson/svg-text-in-shape#readme",
   "jest": {
     "testMatch": [
-      "**/*.steps.js"
-    ],
-    "preset": "jest-puppeteer"
+      "**/*.steps.js",
+      "**/*.test.js"
+    ]
   }
 }
