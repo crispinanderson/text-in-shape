@@ -1,11 +1,13 @@
 import { calcInPathPoints } from "./calcInPathPoints";
+import { calcSentenceWidth } from "../utils";
+
 
 
 export const calcLinePositions = (args) => {
 
-    const { context, svgElement, options, text, lineHeight, charWidth } = args;
+    const { context, svgElement, options, text, lineHeight, charWidths } = args;
     const bbox = svgElement.getBBox();
-    const safetyMargin = 5;
+    const safetyMargin = 0;
 
     let padding = {
         top: options.paddingTop || options.padding,
@@ -16,7 +18,7 @@ export const calcLinePositions = (args) => {
 
     let yOffset = padding.top || 0;
     let firstWord = text.substr(0, text.match(/\s/).index);
-    let minWidth = firstWord.length * charWidth || 0;
+    let minWidth = calcSentenceWidth(firstWord, charWidths);
 
     let linePositions = [];
 

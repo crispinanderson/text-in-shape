@@ -1,6 +1,6 @@
 import { addTextContentToLineData } from '../../src/addTextContentToLineData';
 import { calcTextJustification } from '../../src/calcTextJustification';
-import { mockLineData } from '../utils/mockLineData';
+import { mockLineData, charWidths } from '../utils/mocks';
 
 describe('calcTextJustification - ', () => {
     const lineHeight = 55;
@@ -14,7 +14,7 @@ At homero soleat vocibus vim, causae referrentur comprehensam te mea. Ei duo fas
     test('Justify text - each element is appended with a style.letterSpacing with a valid px value', () => {
         let lineData = mockLineData({ lineHeight });
         const text = longText;
-        const dataWithText = addTextContentToLineData({ text, lineData, charWidth });
+        const dataWithText = addTextContentToLineData({ text, lineData, charWidths });
         const justifiedText = calcTextJustification({ justifyText: true }, dataWithText);
         justifiedText.forEach((line) => {
             expect(line.style.letterSpacing.slice(-2)).toBe('px');
@@ -24,7 +24,7 @@ At homero soleat vocibus vim, causae referrentur comprehensam te mea. Ei duo fas
     test('Justify text - each element is appended with a style.letterSpacing is equal to (line width - textWidth) / textContent.length', () => {
         let lineData = mockLineData({ lineHeight });
         const text = longText;
-        const dataWithText = addTextContentToLineData({ text, lineData, charWidth });
+        const dataWithText = addTextContentToLineData({ text, lineData, charWidths });
         const justifiedText = calcTextJustification({ justifyText: true }, dataWithText);
         justifiedText.forEach((line) => {
             expect(Number(line.style.letterSpacing.replace('px', ''))).toBe((line.width - line.textWidth) / line.textContent.length);

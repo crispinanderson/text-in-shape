@@ -8,3 +8,10 @@ export const applyStyle = (elem, style) => {
         elem.style[key] = value
     })
 }
+
+export const calcSentenceWidth = (text, charWidths) => {
+    return text.split('').reduce((acc, c) => {
+        let charWidth = charWidths[c] || charWidths[0];
+        return acc + charWidth
+    }, 0)
+}
