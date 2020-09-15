@@ -9,9 +9,9 @@ export const calcLinePositions = (args) => {
 
     let padding = {
         top: options.paddingTop || options.padding,
-        left: options.paddingLeft || options.padding || safetyMargin,
+        left: options.paddingLeft + safetyMargin || options.padding + safetyMargin || safetyMargin,
         bottom: options.paddingBottom || options.padding,
-        right: options.paddingRight || options.padding || safetyMargin
+        right: options.paddingRight + safetyMargin || options.padding + safetyMargin || safetyMargin
     };
 
     let yOffset = padding.top || 0;
