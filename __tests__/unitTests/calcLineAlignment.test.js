@@ -1,5 +1,6 @@
 import { addTextContentToLineData } from '../../src/addTextContentToLineData';
 import { calcLineAlignment } from '../../src/calcLineAlignment';
+import { mockLineData } from '../utils/mockLineData'
 
 describe('calcLineAlignment - ', () => {
     const lineHeight = 55;
@@ -11,8 +12,7 @@ In mea alia meliore, wisi justo his ne. Te essent eripuit appellantur eos. In in
 At homero soleat vocibus vim, causae referrentur comprehensam te mea. Ei duo fastidii complectitur, duo legendos euripidis no. Ea habeo invidunt vel. Et omnis probatus senserit eos, accumsan adipisci eum ut. Eu vel mandamus definitiones, usu no probo tempor, vel ad ignota imperdiet reprimique.`;
 
     test('Left alignment - all entries have x value of 0', () => {
-        const arr = Array(100).fill({ y: 0, x: 0, width: 500, height: lineHeight });
-        const lineData = arr.map((l, i) => { return { ...l, y: i > 0 ? arr[i - 1].y + lineHeight : 0 } });
+        let lineData = mockLineData({ lineHeight });
         const text = longText;
         const dataWithText = addTextContentToLineData({ text, lineData, charWidth });
         const alignedData = calcLineAlignment({ align: 'left' }, dataWithText)
@@ -22,8 +22,7 @@ At homero soleat vocibus vim, causae referrentur comprehensam te mea. Ei duo fas
     });
 
     test('Right alignment - all entries have x value equal to their width', () => {
-        const arr = Array(100).fill({ y: 0, x: 0, width: 500, height: lineHeight });
-        const lineData = arr.map((l, i) => { return { ...l, y: i > 0 ? arr[i - 1].y + lineHeight : 0 } });
+        let lineData = mockLineData({ lineHeight });
         const text = longText;
         const dataWithText = addTextContentToLineData({ text, lineData, charWidth });
         const alignedData = calcLineAlignment({ align: 'right' }, dataWithText);
@@ -32,9 +31,8 @@ At homero soleat vocibus vim, causae referrentur comprehensam te mea. Ei duo fas
         })
     });
 
-    test('Right alignment - all entries have x value equal to their width', () => {
-        const arr = Array(100).fill({ y: 0, x: 0, width: 500, height: lineHeight });
-        const lineData = arr.map((l, i) => { return { ...l, y: i > 0 ? arr[i - 1].y + lineHeight : 0 } });
+    test('Center alignment - all entries have a x value  + textWidth / 2 equal to lineData width / 2', () => {
+        let lineData = mockLineData({ lineHeight });
         const text = longText;
         const dataWithText = addTextContentToLineData({ text, lineData, charWidth });
         const alignedData = calcLineAlignment({ align: 'center' }, dataWithText);
