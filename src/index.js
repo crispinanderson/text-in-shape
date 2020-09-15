@@ -1,4 +1,4 @@
-import { renderText } from "./renderText";
+import { renderText, renderGuides } from "./renderText";
 import { createRenderData } from "./createRenderData";
 
 const defaultOptions = {
@@ -18,6 +18,7 @@ export const SVGTextInShape = (text, svgElement, userOptions = {}) => {
 
     const renderData = createRenderData(text, svgElement, options);
     renderText(svgElement, renderData, options);
+    /* renderGuides(svgElement, renderData, options); */
 }
 
 export default SVGTextInShape;
