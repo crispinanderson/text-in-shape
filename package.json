@@ -21,7 +21,9 @@
     "webpack-cli": "^3.3.12"
   },
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --config __tests__/jest.config.unit.js; jest --config __tests__/jest.config.unit.js",
+    "test-unit": "jest --config __tests__/jest.config.unit.js --watch",
+    "test-e2e": "jest --config __tests__/jest.config.e2e.js --watch",
     "build": "webpack --mode production --display-modules",
     "watch": "webpack --mode development --watch"
   },
@@ -39,11 +41,5 @@
   "bugs": {
     "url": "https://github.com/crispinanderson/svg-text-in-shape/issues"
   },
-  "homepage": "https://github.com/crispinanderson/svg-text-in-shape#readme",
-  "jest": {
-    "testMatch": [
-      "**/*.steps.js",
-      "**/*.test.js"
-    ]
-  }
+  "homepage": "https://github.com/crispinanderson/svg-text-in-shape#readme"
 }
