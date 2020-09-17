@@ -1,3 +1,6 @@
+#test-build
+__tests__/test-build
+
 # Logs
 logs
 *.log
