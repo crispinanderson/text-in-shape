@@ -9,9 +9,19 @@ export const applyStyle = (elem, style) => {
     })
 }
 
-export const calcSentenceWidth = (text, charWidths) => {
-    return text.split('').reduce((acc, c) => {
-        let charWidth = charWidths[c] || charWidths[0];
-        return acc + charWidth
-    }, 0)
+export const calcSentenceWidth = (text, options) => {
+    let tempText = document.createElement("span");
+    document.body.appendChild(tempText);
+
+    //Apply any styling for correct sizing
+    applyStyle(tempText, options.style);
+
+    //Set textContent to get lineHeight and charachter width
+    tempText.textContent = text;
+    const width = tempText.getBoundingClientRect().width;
+
+    tempText.remove();
+
+    return width;
+
 }

@@ -1,13 +1,13 @@
 import { svgElementToCanvas, destroyCanvas } from "./svgElementToCanvas";
 import { calcLineAlignment } from "./calcLineAlignment";
 import { calcTextJustification } from "./calcTextJustification";
-import { getStyledFontDimensions } from "./getStyledFontDimensions";
+import { getLineHeight } from "./getStyledFontDimensions";
 import { calcLinePositions } from "./calcLinePositions";
 import { addTextContentToLineData } from "./addTextContentToLineData";
 
 export const createRenderData = (text, svgElement, options) => {
     const context = svgElementToCanvas(svgElement);
-    const fontDims = getStyledFontDimensions(svgElement, options);
+    const fontDims = getLineHeight(svgElement, options);
     const lineData = calcLinePositions({ ...fontDims, context, svgElement, options, text });
     const lineDataWithText = addTextContentToLineData({ ...fontDims, text, lineData, options });
     const lineDataAligned = calcLineAlignment(options, lineDataWithText);
