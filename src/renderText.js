@@ -14,7 +14,7 @@ export const renderText = (svgElement, renderData, options) => {
     applyStyle(textGrp, options.style)
 
     const svgGrp = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    svgGrp.style.transform = `matrix(1, 0, 0, 1, ${bbox.x - margin.x}, ${bbox.y - margin.y} )`;
+    svgGrp.style.transform = `matrix(1, 0, 0, 1, ${bbox.x}, ${bbox.y} )`;
     svgGrp.appendChild(textGrp);
 
     renderData.forEach((lineData) => {
@@ -46,7 +46,7 @@ export const renderGuides = (svgElement, renderData, options) => {
     }
 
     const svgGrp = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    svgGrp.style.transform = `matrix(1, 0, 0, 1, ${bbox.x - margin.x}, ${bbox.y - margin.y} )`;
+    svgGrp.style.transform = `matrix(1, 0, 0, 1, ${bbox.x}, ${bbox.y} )`;
 
     renderData.forEach((lineData) => {
         const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
