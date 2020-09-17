@@ -1,6 +1,6 @@
 module.exports = {
     testMatch: [
-        "**/*.e2e.test.js"
+        "**/*.integration.test.js"
     ],
     preset: 'jest-puppeteer'
 }

@@ -23,9 +23,9 @@
   "scripts": {
     "test": "jest --config __tests__/jest.config.unit.js; jest --config __tests__/jest.config.unit.js",
     "test-unit": "jest --config __tests__/jest.config.unit.js --watch",
-    "test-e2e": "jest --config __tests__/jest.config.e2e.js --watch",
-    "build": "webpack --mode production --display-modules",
-    "watch": "webpack --mode development --watch"
+    "test-integration": "webpack --mode development --config-name 'test-integration'; jest --config __tests__/jest.config.integration.js --watch",
+    "build": "webpack --mode production --display-modules --config-name 'build'",
+    "watch": "webpack --mode development --watch --config-name 'build'"
   },
   "repository": {
     "type": "git",
