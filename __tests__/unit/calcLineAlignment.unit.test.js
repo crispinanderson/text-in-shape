@@ -1,6 +1,6 @@
 import { addTextContentToLineData } from '../../src/addTextContentToLineData';
 import { calcLineAlignment } from '../../src/calcLineAlignment';
-import { mockLineData, circleMockData, polygonMockData, rectMockData, charWidths } from '../utils/mocks'
+import { mockLineData, circleMockData, polygonMockData } from '../utils/mocks'
 
 /* !!!!!!! BE AWARE UNIT TESTS RELY ON MOCK DOM IMPLEMENTATION TEXT WIDTH ARE ALWAYS MOCKED WITH A ZERO VALUE !!!!!!! */
 describe('calcLineAlignment - ', () => {
