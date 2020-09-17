@@ -20,34 +20,34 @@ export const mockLineData = ({ length = 20, width = 500, lineHeight = 55, option
 }
 
 export const polygonMockData = () => {
-    return [{ x: 259, y: 34, width: 86.4000244140625, height: 46 },
-    { x: 196, y: 80, width: 212.4000244140625, height: 46 },
-    { x: 133, y: 126, width: 338.4000244140625, height: 46 },
-    { x: 69, y: 172, width: 466.4000244140625, height: 46 },
-    { x: 22, y: 218, width: 560.4000244140625, height: 46 },
-    { x: 36, y: 264, width: 532.4000244140625, height: 46 },
-    { x: 51, y: 310, width: 502.4000244140625, height: 46 },
-    { x: 66, y: 356, width: 472.4000244140625, height: 46 },
-    { x: 81, y: 402, width: 442.4000244140625, height: 46 },
-    { x: 96, y: 448, width: 412.4000244140625, height: 46 },
-    { x: 111, y: 494, width: 382.4000244140625, height: 46 }]
+    return [{ x: 248, y: 42, width: 108.4000244140625, height: 46 },
+    { x: 185, y: 88, width: 234.4000244140625, height: 46 },
+    { x: 122, y: 134, width: 360.4000244140625, height: 46 },
+    { x: 58, y: 180, width: 488.4000244140625, height: 46 },
+    { x: 24, y: 226, width: 556.4000244140625, height: 46 },
+    { x: 39, y: 272, width: 526.4000244140625, height: 46 },
+    { x: 54, y: 318, width: 496.4000244140625, height: 46 },
+    { x: 69, y: 364, width: 466.4000244140625, height: 46 },
+    { x: 84, y: 410, width: 436.4000244140625, height: 46 },
+    { x: 99, y: 456, width: 406.4000244140625, height: 46 },
+    { x: 114, y: 502, width: 376.4000244140625, height: 46 }]
 
 
 }
 
 export const circleMockData = () => {
-    return [{ x: 258, y: 4, width: 89, height: 46 },
-    { x: 141, y: 50, width: 323, height: 46 },
-    { x: 87, y: 96, width: 431, height: 46 },
-    { x: 51, y: 142, width: 503, height: 46 },
-    { x: 28, y: 188, width: 549, height: 46 },
-    { x: 14, y: 234, width: 577, height: 46 },
-    { x: 8, y: 280, width: 589, height: 46 },
-    { x: 15, y: 326, width: 575, height: 46 },
-    { x: 31, y: 372, width: 543, height: 46 },
-    { x: 55, y: 418, width: 495, height: 46 },
-    { x: 92, y: 464, width: 421, height: 46 },
-    { x: 150, y: 510, width: 305, height: 46 }]
+    return [{ x: 247, y: 6, width: 111, height: 46 },
+    { x: 138, y: 52, width: 329, height: 46 },
+    { x: 85, y: 98, width: 435, height: 46 },
+    { x: 50, y: 144, width: 505, height: 46 },
+    { x: 27, y: 190, width: 551, height: 46 },
+    { x: 13, y: 236, width: 579, height: 46 },
+    { x: 8, y: 282, width: 589, height: 46 },
+    { x: 16, y: 328, width: 573, height: 46 },
+    { x: 32, y: 374, width: 541, height: 46 },
+    { x: 57, y: 420, width: 491, height: 46 },
+    { x: 94, y: 466, width: 417, height: 46 },
+    { x: 153, y: 512, width: 299, height: 46 }]
 }
 
 export const rectMockData = () => {
