@@ -9,7 +9,7 @@ export const createRenderData = (text, svgElement, options) => {
     const context = svgElementToCanvas(svgElement);
     const fontDims = getStyledFontDimensions(svgElement, options);
     const lineData = calcLinePositions({ ...fontDims, context, svgElement, options, text });
-    const lineDataWithText = addTextContentToLineData({ ...fontDims, text, lineData });
+    const lineDataWithText = addTextContentToLineData({ ...fontDims, text, lineData, options });
     const lineDataAligned = calcLineAlignment(options, lineDataWithText);
     const lineDataJustified = options.justifyText ? calcTextJustification(lineDataAligned) : lineDataAligned;
     destroyCanvas();
