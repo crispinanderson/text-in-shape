@@ -3,7 +3,7 @@
 import { appendContPuncuation } from './appendContPuncuation';
 import { calcSentenceWidth } from '../utils';
 
-export const addTextContentToLineData = ({ text, lineData, charWidths }) => {
+export const addTextContentToLineData = ({ text, lineData, charWidths, options }) => {
 
     const paragraphs = text.length ? text.split('\n').map((str) => str.trim(' ')).map((txt) => txt.split(' ')) : [];
     let p = 0;
@@ -26,16 +26,16 @@ export const addTextContentToLineData = ({ text, lineData, charWidths }) => {
                 textContent += textContent.length > 0 ? ' ' + word : word;
 
                 //If the tempText is longer than thisLine width
-                if (calcSentenceWidth(textContent, charWidths) > thisLine.width) {
+                if (calcSentenceWidth(textContent, options) > thisLine.width) {
                     //remove the last word addded
                     textContent = textContent.replace(' ' + word, '');
 
                     //When on the last line if all text does not fit then append with '...' punctuation
                     if (lineIndex === lineData.length - 1) {
-                        return appendContPuncuation({ ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, charWidths) })
+                        return appendContPuncuation({ ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, options) })
                     }
 
-                    return { ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, charWidths) }
+                    return { ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, options) }
                 }
 
                 //If all the words have been added to the textContent - move to next paragraph
@@ -45,7 +45,7 @@ export const addTextContentToLineData = ({ text, lineData, charWidths }) => {
                     p++;
 
                     //Add the tempTextContent to the lineData
-                    return { ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, charWidths) }
+                    return { ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, options) }
                 }
 
 

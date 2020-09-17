@@ -18,7 +18,7 @@ export const calcLinePositions = (args) => {
 
     let yOffset = padding.top || 0;
     let firstWord = text.substr(0, text.match(/\s/).index);
-    let minWidth = calcSentenceWidth(firstWord, charWidths);
+    let minWidth = calcSentenceWidth(firstWord, options);
 
     let linePositions = [];
 
