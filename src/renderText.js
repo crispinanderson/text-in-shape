@@ -5,12 +5,9 @@ export const renderText = (svgElement, renderData, options) => {
 
     const bbox = svgElement.getBBox();
     const parent = svgElement.parentNode;
-    const margin = {
-        y: +window.getComputedStyle(document.body).marginTop.replace('px', ''),
-        x: +window.getComputedStyle(document.body).marginLeft.replace('px', '')
-    }
 
     const textGrp = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textGrp.id = 'text-in-' + svgElement.id
     applyStyle(textGrp, options.style)
 
     const svgGrp = document.createElementNS("http://www.w3.org/2000/svg", "g");
