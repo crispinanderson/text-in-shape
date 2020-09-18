@@ -13,8 +13,8 @@ export const calcSentenceWidth = (text, options) => {
     let tempText = document.createElement("span");
     document.body.appendChild(tempText);
 
-    //Apply any styling for correct sizing
-    applyStyle(tempText, options.style);
+    //Apply any styling for correct sizing --> whiteSpace: nowrap, stop text wrapping which could report incorrect width
+    applyStyle(tempText, { ...options.style, whiteSpace: 'nowrap' });
 
     //Set textContent to get lineHeight and charachter width
     tempText.textContent = text;
