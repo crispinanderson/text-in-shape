@@ -57,7 +57,7 @@ describe('Text Overun - ', () => {
             return Array.from(textGrp.children).pop().textContent;
         }, text, config)
 
-        await page.screenshot({ path: __dirname + '/screenshots/text-overun.png' });
+        await page.screenshot({ path: __dirname + '/screenshots/text-overun-poly.png' });
 
         expect(result.slice(-3)).toBe('...');
 
@@ -101,7 +101,8 @@ describe('Text Overun - ', () => {
             return bbox.x + bbox.width;
         }, text, config)
 
-        expect(rightpos).toBe(500);
+        await page.screenshot({ path: __dirname + '/screenshots/text-overun-rect.png' });
+        expect(rightpos).toBeGreaterThan(498);
 
     });
 
