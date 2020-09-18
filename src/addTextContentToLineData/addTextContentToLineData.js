@@ -3,7 +3,7 @@
 import { appendContPuncuation } from './appendContPuncuation';
 import { calcSentenceWidth } from '../utils';
 
-export const addTextContentToLineData = ({ text, lineData, charWidths, options }) => {
+export const addTextContentToLineData = ({ text, lineData, options }) => {
 
     const paragraphs = text.length ? text.split('\n').map((str) => str.trim(' ')).map((txt) => txt.split(' ')) : [];
     let p = 0;
@@ -32,7 +32,7 @@ export const addTextContentToLineData = ({ text, lineData, charWidths, options }
 
                     //When on the last line if all text does not fit then append with '...' punctuation
                     if (lineIndex === lineData.length - 1) {
-                        return appendContPuncuation({ ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, options) })
+                        return appendContPuncuation({ ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, options) }, options)
                     }
 
                     return { ...thisLine, textContent, textWidth: calcSentenceWidth(textContent, options) }
