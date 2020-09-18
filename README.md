@@ -96,7 +96,11 @@ ids.forEach((id) => {
 
 #### API
 
-arguments: (text: String, elem: SVGSVGElement, options: object) 
+arguments: (
+    text: String, 
+    elem: SVGRectElement || SVGCircleElement || SVGPolygonElement, 
+    options: object
+    ) 
 
 options:
 
