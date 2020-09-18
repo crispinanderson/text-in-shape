@@ -22,7 +22,7 @@ export const calcLinePositions = (args) => {
 
     let linePositions = [];
 
-    while (yOffset + lineHeight <= bbox.height) {
+    while (yOffset + lineHeight + padding.bottom <= bbox.height) {
         let lineData = calcInPathPoints({ ...args, padding, bbox, minWidth, lineHeight, yOffset })
         yOffset = lineData.y + lineHeight;
         linePositions.push(lineData);

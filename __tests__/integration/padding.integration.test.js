@@ -37,9 +37,9 @@ describe('Padding - ', () => {
         logs.forEach((log) => log())
     })
 
-    test('top - first line should be offset 20px from the top of the shape', async () => {
+    test('top', async () => {
 
-        const topLinePos = async (p) => await page.evaluate((text, config, p) => {
+        const testPadding = async (p) => await page.evaluate((text, config, p) => {
 
             const options = {
                 ...config.options,
@@ -77,16 +77,16 @@ describe('Padding - ', () => {
             return y;
         }, text, config, p)
 
-        const noPaddingY = await topLinePos(0);
-        const withPaddingY = await topLinePos(20);
+        const noPaddingY = await testPadding(0);
+        const withPaddingY = await testPadding(20);
 
         expect(withPaddingY).toBe(noPaddingY + 20);
 
     })
 
-    test('Left - lines should be offset 20px from the left', async () => {
+    test('Left', async () => {
 
-        const topLinePos = async (p) => await page.evaluate((text, config, p) => {
+        const testPadding = async (p) => await page.evaluate((text, config, p) => {
 
             const options = {
                 ...config.options,
@@ -124,16 +124,16 @@ describe('Padding - ', () => {
             return x;
         }, text, config, p)
 
-        const noPadding = await topLinePos(0);
-        const withPadding = await topLinePos(20);
+        const noPadding = await testPadding(0);
+        const withPadding = await testPadding(20);
 
         expect(withPadding).toBe(noPadding + 20);
 
     })
 
-    test('Right - lines should be offset 20px/max 20px minimum shorter from the right', async () => {
+    test('Right', async () => {
 
-        const topLinePos = async (p) => await page.evaluate((text, config, p) => {
+        const testPadding = async (p) => await page.evaluate((text, config, p) => {
 
             const options = {
                 ...config.options,
@@ -173,12 +173,130 @@ describe('Padding - ', () => {
             return x + width;
         }, text, config, p)
 
-        const noPadding = await topLinePos(0);
-        const withPadding = await topLinePos(20);
+        const noPadding = await testPadding(0);
+        const withPadding = await testPadding(20);
 
         expect(withPadding).toBe(noPadding - 20);
 
     })
+
+    test('Bottom', async () => {
+
+        const testPadding = async (p) => await page.evaluate((text, config, p) => {
+
+            const options = {
+                ...config.options,
+                align: 'center',
+                paddingBottom: p,
+                style: {
+                    ...config.options.style
+                }
+            }
+
+            const elemAttributes = {
+                ...config.elemAttributes,
+                id: 'rect',
+                x: 0,
+                y: 0,
+                height: 500,
+                width: 500
+            }
+
+            const svg = document.querySelector('svg');
+            const elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            Object.entries(elemAttributes).forEach(([key, value]) => {
+                elem.setAttribute(key, value)
+            });
+
+            svg.appendChild(elem);
+
+            SVGTextInShape(text, elem, options);
+            const textGrp = document.getElementById('text-in-' + elemAttributes.id);
+
+            const y = Array.from(textGrp.children).pop().getBBox().y;
+
+            elem.remove();
+            textGrp.remove();
+
+            return y;
+        }, text, config, p)
+
+        const noPadding = await testPadding(0);
+        const withPadding = await testPadding(20);
+
+        expect(withPadding).toBeLessThanOrEqual(noPadding - 20);
+
+    })
+
+    test('All padding', async () => {
+
+        const testPadding = async (p) => await page.evaluate((text, config, p) => {
+
+            const options = {
+                ...config.options,
+                align: 'left',
+                padding: p,
+                style: {
+                    ...config.options.style
+                }
+            }
+
+            const elemAttributes = {
+                ...config.elemAttributes,
+                id: 'rect',
+                x: 0,
+                y: 0,
+                height: 500,
+                width: 500
+            }
+
+            const svg = document.querySelector('svg');
+            const elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            Object.entries(elemAttributes).forEach(([key, value]) => {
+                elem.setAttribute(key, value)
+            });
+
+            svg.appendChild(elem);
+
+            SVGTextInShape(text, elem, options);
+            const textGrp = document.getElementById('text-in-' + elemAttributes.id);
+
+            const bboxes = Array.from(textGrp.children).map((e) => {
+                let bbox = e.getBBox();
+                const { x, y, width } = bbox;
+                return { x, y, width };
+            });
+
+            elem.remove();
+            textGrp.remove();
+
+            return bboxes;
+        }, text, config, p)
+
+        const padding = 50;
+        const noPadding = await testPadding(0);
+        const withPadding = await testPadding(50);
+        //await page.screenshot({ path: __dirname + '/screenshots/screenshot.png' })
+
+
+        //Left padding
+        withPadding.forEach((item, i) => {
+            expect(item.x).toBeGreaterThanOrEqual(noPadding[i].x + padding);
+        })
+
+        //Right padding
+        withPadding.forEach((item, i) => {
+            expect(item.width).toBeLessThanOrEqual(500 - (padding * 2));
+        })
+
+        //Top Padding
+        expect(withPadding[0].y).toBe(noPadding[0].y + padding);
+
+        //Bottom padding
+        expect(withPadding.pop().y).toBeLessThanOrEqual(noPadding.pop().y - 20);
+
+    })
+
 
 
 })

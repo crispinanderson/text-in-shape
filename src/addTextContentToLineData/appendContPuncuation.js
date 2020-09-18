@@ -9,7 +9,7 @@ export const appendContPuncuation = (lineData, options) => {
     appended.textWidth = calcSentenceWidth(appended.textContent, options);
 
     //If the length would overrun the container with the punction added, remove the last word
-    if (calcSentenceWidth(appended.textContent, options) > appended.width) {
+    if (calcSentenceWidth(appended.textContent, options) > appended.width - options.padding.right) {
 
         appended.textContent = appended.textContent.trim().replace(/\w([^\w+]*)$/, '');
         appended.textContent = appended.textContent.trim().replace(/\s(\w+)$/, '...');
