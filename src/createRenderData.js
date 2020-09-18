@@ -10,9 +10,9 @@ export const createRenderData = (text, svgElement, options) => {
     const lineHeight = getLineHeight(options);
     const lineData = calcLinePositions({ lineHeight, context, svgElement, options, text });
     const lineDataWithText = addTextContentToLineData({ lineHeight, text, lineData, options });
-    const lineDataAligned = calcLineAlignment(options, lineDataWithText);
-    const lineDataJustified = options.justifyText ? calcTextJustification(lineDataAligned) : lineDataAligned;
+    const lineDataJustified = options.justifyText ? calcTextJustification(options, lineDataWithText) : lineDataWithText;
+    const lineDataAligned = options.justifyText ? lineDataJustified : calcLineAlignment(options, lineDataJustified);
     destroyCanvas();
 
-    return lineDataJustified;
+    return lineDataAligned;
 } 

@@ -297,6 +297,45 @@ describe('Padding - ', () => {
 
     })
 
+    test('Screenshot', async () => {
+
+        const testPadding = async (p) => await page.evaluate((text, config, p) => {
+
+            const options = {
+                ...config.options,
+                align: 'left',
+                padding: p,
+                style: {
+                    ...config.options.style
+                }
+            }
+
+            const elemAttributes = {
+                ...config.elemAttributes,
+                id: 'rect',
+                x: 0,
+                y: 0,
+                height: 500,
+                width: 500
+            }
+
+            const svg = document.querySelector('svg');
+            const elem = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            Object.entries(elemAttributes).forEach(([key, value]) => {
+                elem.setAttribute(key, value)
+            });
+
+            svg.appendChild(elem);
+
+            SVGTextInShape(text, elem, options);
+
+        }, text, config, p)
+
+        await testPadding(50);
+        await page.screenshot({ path: __dirname + '/screenshots/padding-all-50px.png' })
+
+    })
+
 
 
 })
