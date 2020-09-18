@@ -9,7 +9,7 @@ const defaultOptions = {
     style: {},
 }
 
-export const SVGTextInShape = (text, svgElement, userOptions = {}) => {
+export const textInShape = (text, svgElement, userOptions = {}) => {
 
     const options = {
         ...defaultOptions,
@@ -21,4 +21,4 @@ export const SVGTextInShape = (text, svgElement, userOptions = {}) => {
 
 }
 
-export default SVGTextInShape;
+export default textInShape;
