@@ -1,3 +1,3 @@
-import { SVGTextInShape } from '../../src';
-window.SVGTextInShape = SVGTextInShape;
+import { textInShape } from '../../src';
+window.textInShape = textInShape;
 
