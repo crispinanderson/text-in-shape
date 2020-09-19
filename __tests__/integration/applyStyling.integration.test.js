@@ -1,13 +1,9 @@
 
 
 
-describe('JustifyText - ', () => {
+describe('Styling - ', () => {
     const logs = [];
-    const text = `Lorem ipsum dolor sit amet, nec ut dolorum hendrerit. 
-    Ad novum nostro eum, mei no option voluptaria. 
-    Senserit referrentur ullamcorper et sed, per semper timeam feugait id. 
-    In mea alia meliore, wisi justo his ne. Te essent eripuit appellantur eos. In intellegebat deterruisset vis, at albucius intellegebat sea, ad usu erat impedit. 
-    At homero soleat vocibus vim, causae referrentur comprehensam te mea. Ei duo fastidii complectitur, duo legendos euripidis no. Ea habeo invidunt vel. Et omnis probatus senserit eos, accumsan adipisci eum ut. Eu vel mandamus definitiones, usu no probo tempor, vel ad ignota imperdiet reprimique.`
+    const text = `Lorem ipsum dolor sit amet, nec ut dolorum hendrerit. Ad novum nostro eum, mei no option voluptaria. Senserit referrentur ullamcorper et sed, per semper timeam feugait id. In mea alia meliore, wisi justo his ne. Te essent eripuit appellantur eos. In intellegebat deterruisset vis, at albucius intellegebat sea, ad usu erat impedit. At homero soleat vocibus vim, causae referrentur comprehensam te mea. Ei duo fastidii complectitur, duo legendos euripidis no. Ea habeo invidunt vel. Et omnis probatus senserit eos, accumsan adipisci eum ut. Eu vel mandamus definitiones, usu no probo tempor, vel ad ignota imperdiet reprimique.`
 
     const config = {
         elemType: 'polygon',
@@ -33,16 +29,19 @@ describe('JustifyText - ', () => {
 
     });
 
-    test('text is spread across the enitre line width', async () => {
+    test('Style font family "comic-sans"', async () => {
 
         const testPadding = async (p) => await page.evaluate((text, config, p) => {
 
             const options = {
                 ...config.options,
-                align: 'left',
+                align: 'right',
+                padding: 50,
                 justifyText: true,
                 style: {
-                    ...config.options.style
+                    fontWeight: 100,
+                    fontSize: '20px',
+                    fontFamily: "Comic Sans MS"
                 }
             }
 
@@ -70,19 +69,25 @@ describe('JustifyText - ', () => {
             return Array.from(textGrp.children).map(e => {
                 const bbox = e.getBBox();
                 const { x, y, width } = bbox;
-                return { x, y, width };
+                const fontFamily = window.getComputedStyle(e, null).getPropertyValue('font-family');
+                const fontWeight = window.getComputedStyle(e, null).getPropertyValue('font-weight');
+                const fontSize = window.getComputedStyle(e, null).getPropertyValue('font-size');
+                return { x, y, width, fontFamily, fontWeight, fontSize };
             });
 
         }, text, config, p)
 
         const result = await testPadding(50);
-        await page.screenshot({ path: __dirname + '/screenshots/justified-text.png' });
+        await page.screenshot({ path: __dirname + '/screenshots/style-font-family-comic-sans.png' });
         result.forEach((item) => {
-            expect(item.width).toBeGreaterThanOrEqual(480)
+            expect(item.width).toBeGreaterThanOrEqual(360);
+            expect(item.width).toBeLessThanOrEqual(400);
+            expect(item.fontFamily.replace(/["\\]/g, '')).toBe('Comic Sans MS');
+            expect(item.fontWeight).toBe('100');
+            expect(item.fontSize).toBe('20px');
         })
 
     })
-
 
 
 })

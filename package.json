@@ -14,14 +14,13 @@
     "jest-canvas-mock": "^2.2.0",
     "jest-cli": "^24.8.0",
     "jest-css-modules": "^2.1.0",
-    "jest-cucumber": "^2.0.11",
     "jest-puppeteer": "^4.4.0",
     "puppeteer": "^5.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
   "scripts": {
-    "test": "jest --config __tests__/jest.config.unit.js; jest --config __tests__/jest.config.unit.js",
+    "test": "jest --config __tests__/jest.config.unit.js; webpack --mode development --config-name 'test-integration'; jest --config __tests__/jest.config.integration.js;",
     "test-unit": "jest --config __tests__/jest.config.unit.js --watch",
     "test-integration": "webpack --mode development --config-name 'test-integration'; jest --config __tests__/jest.config.integration.js --watch",
     "build": "webpack --mode production --display-modules --config-name 'build'",

@@ -6,10 +6,11 @@ const defaultOptions = {
     justify: 'top',
     align: 'center',
     lineJustify: false,
+    hideShape: false,
     style: {},
 }
 
-export const SVGTextInShape = (text, svgElement, userOptions = {}) => {
+export const textInShape = (text, svgElement, userOptions = {}) => {
 
     const options = {
         ...defaultOptions,
@@ -18,7 +19,9 @@ export const SVGTextInShape = (text, svgElement, userOptions = {}) => {
 
     const renderData = createRenderData(text, svgElement, options);
     renderText(svgElement, renderData, options);
+    if (options.hideShape) { svgElement.setAttribute('visibility', 'hidden'); }
 
 }
 
-export default SVGTextInShape;
+export default textInShape;
+

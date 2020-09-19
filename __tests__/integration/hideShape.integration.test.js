@@ -1,7 +1,7 @@
 
 
 
-describe('JustifyText - ', () => {
+describe('hideShape - ', () => {
     const logs = [];
     const text = `Lorem ipsum dolor sit amet, nec ut dolorum hendrerit. 
     Ad novum nostro eum, mei no option voluptaria. 
@@ -33,13 +33,14 @@ describe('JustifyText - ', () => {
 
     });
 
-    test('text is spread across the enitre line width', async () => {
+    test('- hidden', async () => {
 
-        const testPadding = async (p) => await page.evaluate((text, config, p) => {
+        const run = async () => await page.evaluate((text, config) => {
 
             const options = {
                 ...config.options,
-                align: 'left',
+                hideShape: true,
+                padding: 20,
                 justifyText: true,
                 style: {
                     ...config.options.style
@@ -67,19 +68,14 @@ describe('JustifyText - ', () => {
 
             const textGrp = document.getElementById('text-in-' + elemAttributes.id);
 
-            return Array.from(textGrp.children).map(e => {
-                const bbox = e.getBBox();
-                const { x, y, width } = bbox;
-                return { x, y, width };
-            });
+            return elem.getAttribute('visibility');
 
-        }, text, config, p)
+        }, text, config)
 
-        const result = await testPadding(50);
-        await page.screenshot({ path: __dirname + '/screenshots/justified-text.png' });
-        result.forEach((item) => {
-            expect(item.width).toBeGreaterThanOrEqual(480)
-        })
+        const result = await run();
+        await page.screenshot({ path: __dirname + '/screenshots/hide-shape.png' });
+        expect(result).toBe('hidden');
+
 
     })
 
