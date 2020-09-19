@@ -63,7 +63,7 @@ describe('JustifyText - ', () => {
 
             svg.appendChild(elem);
 
-            SVGTextInShape(text, elem, options);
+            textInShape(text, elem, options);
 
             const textGrp = document.getElementById('text-in-' + elemAttributes.id);
 
