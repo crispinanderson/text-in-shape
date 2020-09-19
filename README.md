@@ -35,7 +35,7 @@ wrap(text, elem, {
 ```
 
 ### DEMO 
---> [codepen demo](https://codepen.io/crispinsound/pen/YaejoP) <--B
+--> [demo](https://codesandbox.io/s/text-in-shape-demo-k7qxm) <--
 
 #### Example
 ```HTML
