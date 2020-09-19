@@ -1,6 +1,6 @@
 {
   "name": "text-in-shape",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple tool for wrapping text in a shape",
   "main": "build/index.js",
   "dependencies": {},
