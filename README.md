@@ -34,6 +34,9 @@ wrap(text, elem, {
 
 ```
 
+### DEMO 
+--> [codepen demo](https://codepen.io/crispinsound/pen/YaejoP) <--B
+
 #### Example
 ```HTML
 
@@ -91,9 +94,6 @@ ids.forEach((id) => {
 
 ```
 
-![example image](https://github.com/crispinanderson/text-in-shape/blob/dev/example_render.png)
-
-
 #### API
 
 arguments: (
@@ -113,7 +113,9 @@ options:
 | paddingLeft   | Number   | float or integer                 | 0        |                                                            |
 | paddingRight  | Number   | float or integer                 | 0        |                                                            |
 | justifyText   | Boolean  | -                                | false    | Stretches text to fit the line width using letter-spacing  |
+| hideShape     | Boolean  | -                                | false    | Hide the passed SVGElement                                 |
 | style         | Object   | css key value pairs (camelCased) | {}       | Apply standard css styling to the rendered text elements   |
+
 
 
 
