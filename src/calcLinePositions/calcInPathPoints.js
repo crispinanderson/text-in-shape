@@ -29,7 +29,7 @@ export const calcInPathPoints = (args) => {
     let lineData = {
         x: xOffset + padding.left,
         y: yOffset,
-        width: bbox.width + wOffset - xOffset - padding.right,
+        width: bbox.width + wOffset - xOffset - padding.right - padding.left,
         height: lineHeight
     }
 

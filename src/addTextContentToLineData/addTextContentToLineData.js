@@ -33,7 +33,7 @@ export const addTextContentToLineData = ({ text, lineData, options }) => {
                 textContent += textContent.length > 0 ? ' ' + word : word;
 
                 //If the tempText is longer than thisLine width
-                if (calcSentenceWidth(textContent, options) > thisLine.width - padding.right) {
+                if (calcSentenceWidth(textContent, options) > thisLine.width) {
                     //remove the last word addded
                     textContent = textContent.replace(' ' + word, '');
 
