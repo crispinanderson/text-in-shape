@@ -52,6 +52,7 @@ describe('Text Overun - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, config.options);
+
             const textGrp = document.getElementById('text-in-' + config.elemAttributes.id);
 
             return Array.from(textGrp.children).pop().textContent;
@@ -93,6 +94,7 @@ describe('Text Overun - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+
             const textGrp = document.getElementById('text-in-' + elemAttributes.id);
             const bbox = Array.from(textGrp.children).pop().getBBox();
 

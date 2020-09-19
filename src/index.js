@@ -24,3 +24,4 @@ export const textInShape = (text, svgElement, userOptions = {}) => {
 }
 
 export default textInShape;
+

@@ -68,6 +68,7 @@ describe('Padding - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+
             const textGrp = document.getElementById('text-in-' + elemAttributes.id);
 
             const y = Array.from(textGrp.children)[0].getBBox().y;
@@ -115,6 +116,7 @@ describe('Padding - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+
             const textGrp = document.getElementById('text-in-' + elemAttributes.id);
 
             const x = Array.from(textGrp.children)[0].getBBox().x;
@@ -161,7 +163,9 @@ describe('Padding - ', () => {
 
             svg.appendChild(elem);
 
+
             textInShape(text, elem, options);
+
             const textGrp = document.getElementById('text-in-' + elemAttributes.id);
 
             const x = Array.from(textGrp.children)[0].getBBox().x;
@@ -211,6 +215,7 @@ describe('Padding - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+
             const textGrp = document.getElementById('text-in-' + elemAttributes.id);
 
             const y = Array.from(textGrp.children).pop().getBBox().y;
@@ -259,6 +264,7 @@ describe('Padding - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+
             const textGrp = document.getElementById('text-in-' + elemAttributes.id);
 
             const bboxes = Array.from(textGrp.children).map((e) => {
@@ -328,6 +334,7 @@ describe('Padding - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+
 
         }, text, config, p)
 

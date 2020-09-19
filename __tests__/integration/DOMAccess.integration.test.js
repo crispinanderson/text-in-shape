@@ -79,6 +79,7 @@ describe('Test can acess DOM - ', () => {
     })
 
 
+
     test('textInShape executes and appends an svg text group containg tspan elements', async () => {
 
         const result = await page.evaluate(() => {
@@ -109,6 +110,7 @@ describe('Test can acess DOM - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, config.options);
+
             const textGrp = document.getElementById('text-in-polygon');
 
             return [textGrp.tagName, Array.from(textGrp.children).map((e) => e.tagName)];

@@ -62,6 +62,7 @@ describe('Alignment - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+
             const textGrp = document.getElementById('text-in-' + config.elemAttributes.id);
 
             return Array.from(textGrp.children).map(e => {
@@ -101,6 +102,7 @@ describe('Alignment - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+          
             const textGrp = document.getElementById('text-in-' + config.elemAttributes.id);
 
             return Array.from(textGrp.children).map(e => {
@@ -141,6 +143,7 @@ describe('Alignment - ', () => {
             svg.appendChild(elem);
 
             textInShape(text, elem, options);
+          
             const textGrp = document.getElementById('text-in-' + config.elemAttributes.id);
 
             return Array.from(textGrp.children).map(e => {
