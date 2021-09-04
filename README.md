@@ -5,7 +5,7 @@ A simple tool that wraps text inside an svg shape
 
 * Need to wrap text inside a complex shape.
 * You can supply a basic SVG shape for the text wrapper
-* You do not need overfloy scrolling text
+* You do not need overflow scrolling text
 
 ##### Supported shapes
 
