@@ -1,6 +1,3 @@
-
-
-
 describe('Option Combinations - ', () => {
     const logs = [];
     const text = `Lorem ipsum dolor sit amet, nec ut dolorum hendrerit. 
@@ -25,7 +22,7 @@ describe('Option Combinations - ', () => {
         }
     };
 
-    beforeEach(async () => {
+    beforeEach(async() => {
         await page.setViewport({ width: 1400, height: 1500 })
         await page.goto('file://' + __dirname + '/index.html');
         await page.addScriptTag({ path: __dirname.replace('integration', '') + '/test-build/index.js' });
@@ -33,9 +30,9 @@ describe('Option Combinations - ', () => {
 
     });
 
-    test('Padding and justifyText and align right --> alignment is ignored', async () => {
+    test('Padding and justifyText and align right --> alignment is ignored', async() => {
 
-        const testPadding = async (p) => await page.evaluate((text, config, p) => {
+        const testPadding = async(p) => await page.evaluate((text, config, p) => {
 
             const options = {
                 ...config.options,
@@ -85,9 +82,9 @@ describe('Option Combinations - ', () => {
 
     })
 
-    test('Padding and align left', async () => {
+    test('Padding and align left', async() => {
 
-        const testPadding = async (p) => await page.evaluate((text, config, p) => {
+        const testPadding = async(p) => await page.evaluate((text, config, p) => {
 
             const options = {
                 ...config.options,
@@ -136,9 +133,9 @@ describe('Option Combinations - ', () => {
 
     })
 
-    test('Padding and align right', async () => {
+    test('Padding and align right', async() => {
 
-        const testPadding = async (p) => await page.evaluate((text, config, p) => {
+        const testPadding = async(p) => await page.evaluate((text, config, p) => {
 
             const options = {
                 ...config.options,
@@ -181,13 +178,13 @@ describe('Option Combinations - ', () => {
         const result = await testPadding(50);
         await page.screenshot({ path: __dirname + '/screenshots/padding-with-align-right.png' });
         result.forEach((item) => {
-            expect(item.x + item.width).toBeGreaterThanOrEqual(448);
-            expect(item.x + item.width).toBeLessThanOrEqual(450);
+            expect(Math.floor(item.x + item.width)).toBeGreaterThanOrEqual(448);
+            expect(Math.floor(item.x + item.width)).toBeLessThanOrEqual(450);
         })
 
     })
 
-    test('Padding and align center', async () => {
+    test('Padding and align center', async() => {
 
         const result = await page.evaluate((text, config) => {
 
@@ -241,4 +238,3 @@ describe('Option Combinations - ', () => {
 
 
 })
-
