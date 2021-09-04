@@ -1,6 +1,6 @@
 {
     "name": "svg-text-in-shape",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "A simple tool for wrapping text in an svg shape",
     "main": "build/index.js",
     "dependencies": {},
