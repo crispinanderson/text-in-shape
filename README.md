@@ -8,7 +8,6 @@ A simple tool that wraps text inside an svg shape
 * You do not need overflow scrolling text
 
 ##### Supported shapes
-##### Supported shapes
 
 * Rectangle 
 * Polygon
