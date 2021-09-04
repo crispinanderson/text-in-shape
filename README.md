@@ -1,4 +1,4 @@
-# svg-text-in-shape
+# text-in-shape
 A simple tool that wraps text inside an svg shape
 
 ##### Use when you:
