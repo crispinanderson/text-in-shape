@@ -1,0 +1,17 @@
+#tests
+__tests__
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+
+# node_modules
+node_modules
+
+# vscode settings
+.vscode
